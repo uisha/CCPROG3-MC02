@@ -4,12 +4,11 @@
  * @since June 29
 */
 
-import java.util.Scanner;
+import javax.swing.*;
 
-public class Driver {
-      static Scanner sc = new Scanner(System.in);
+public class Main {
       
       public static void main(String[] args) {
-
+            MachineView machineView = new MachineView();
       }
 }
