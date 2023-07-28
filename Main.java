@@ -4,11 +4,13 @@
  * @since June 29
 */
 
-import javax.swing.*;
 
 public class Main {
       
       public static void main(String[] args) {
             MachineView machineView = new MachineView();
+            MachineModel machineModel = new MachineModel();
+
+            MachineController machineController = new MachineController(machineView, machineModel);
       }
 }

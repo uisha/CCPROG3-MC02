@@ -1,9 +1,0 @@
-public class MachineController {
-      private MachineView machineView;
-      private MachineModel machineModel;
-
-      public MachineController(MachineView machineView, MachineModel machineModel) {
-            this.machineView = new MachineView();
-            this.machineModel = new MachineModel();
-      }
-}

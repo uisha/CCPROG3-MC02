@@ -57,5 +57,13 @@ public class VendingMachine {
             return this.money;
       }
 
+      // Methods
+      /**
+       * Adds an item to the vending machine
+       * @param item The item to be added
+       */
+      public void addItem(Item item) {
+            this.inventory.add(item);
+      }
 
 }
