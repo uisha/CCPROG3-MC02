@@ -12,7 +12,8 @@ import java.awt.event.ActionListener;
 public class MachineView {
       private JFrame mainframe;
       private JButton regVendMachineBtn, specVendMachineBtn;
-      private JPanel topPanel, mainPanel;
+      private JPanel topPanel;
+      private JPanel mainPanel = new JPanel(new BorderLayout(25, 0));
       private JLabel panelLabel;
 
       public MachineView() {
@@ -21,25 +22,26 @@ public class MachineView {
             this.mainframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             this.mainframe.setLayout(new FlowLayout());
             this.mainframe.setSize(500, 500);
-            intialView();
+            mainView();
 
             this.mainframe.setVisible(true);
       }
 
 
-      private void intialView() {
+      private void mainView() {
             this.panelLabel = new JLabel("Create a Vending Machine");
             
             this.topPanel = new JPanel(new BorderLayout());
-            topPanel.setBackground(Color.red);
+            this.topPanel.setBackground(Color.red);
             this.regVendMachineBtn = new JButton("Regular Vending Machine");
             this.specVendMachineBtn = new JButton("Special Vending Machine");
 
-            topPanel.add(this.panelLabel, BorderLayout.NORTH);
-            topPanel.add(regVendMachineBtn, BorderLayout.WEST);
-            topPanel.add(specVendMachineBtn, BorderLayout.EAST);
+            this.topPanel.add(this.panelLabel, BorderLayout.NORTH);
+            this.topPanel.add(regVendMachineBtn, BorderLayout.WEST);
+            this.topPanel.add(specVendMachineBtn, BorderLayout.EAST);
             
-            this.mainframe.add(topPanel);
+            this.mainframe.add(this.topPanel);
+            this.mainframe.add(this.mainPanel);
       }
 
       // Setters
@@ -104,6 +106,15 @@ public class MachineView {
             parent.remove(button);
             parent.revalidate();
             parent.repaint();
+      }
+
+
+      public void addVendingMachineButton(char type) {
+            if (type == 'R') {
+                  this.mainPanel.add(new JButton("Regular Vending Machine"), BorderLayout.WEST);
+            } else if (type == 'S') {
+                  this.mainPanel.add(new JButton("Special Vending Machine"), BorderLayout.EAST);
+            }
       }
 
 }
