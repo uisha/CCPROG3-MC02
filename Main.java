@@ -8,9 +8,10 @@
 public class Main {
       
       public static void main(String[] args) {
-            MachineView machineView = new MachineView();
-            VmModel vmModel = new VmModel();
+            VendingMachineView vendingMachineView = new VendingMachineView('R');
+            // MachineView machineView = new MachineView();
+            // VmModel vmModel = new VmModel();
 
-            MachineController machineController = new MachineController(machineView, vmModel);
+            // MachineController machineController = new MachineController(machineView, vmModel);
       }
 }

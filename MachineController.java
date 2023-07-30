@@ -110,7 +110,7 @@ public class MachineController {
             return isReady;
       }
 
-      private void displayInventory(char code, ArrayList<Item> inventory) {
+      private void displayInventory(ArrayList<Item> inventory) {
             String displayText = "";
             int cnt = 1;
 
@@ -118,6 +118,24 @@ public class MachineController {
                   displayText += "[" + cnt + "] " + item.getName() +
                               "(" + item.getCalories() + ") : PHP" +
                               item.getPrice() + " | " + item.getQuantity() + "pc/s\n";
+                  cnt++;
+            }
+
+            initMachine.setItemList(displayText);
+      }
+
+      private void displayInventory(char code, ArrayList<Item> inventory) {
+            String displayText = "";
+            int cnt = 1;
+
+            for (Item item : inventory) {
+                  if (item.getCodeType() == code) {
+                        displayText += "[" + cnt + "] " + item.getName() +
+                                    "(" + item.getCalories() + ") : PHP" +
+                                    item.getPrice() + " | " + item.getQuantity() + "pc/s\n";
+                        
+                        cnt++;
+                  }
             }
 
             initMachine.setItemList(displayText);
