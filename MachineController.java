@@ -5,6 +5,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.Container;
 import java.awt.event.ActionEvent;
 
 public class MachineController {
@@ -14,49 +15,42 @@ public class MachineController {
       private final int MIN_SLOTS = 2;
       private final int MIN_QUANTITY = 10;
       private boolean isReady = false;
+      private JButton clickedButton;
 
       public MachineController(MachineView machineView, VmModel machineModel) {
             this.machineView = machineView;
             this.vmModel = machineModel;
 
-            this.machineView.setRegVendMachineBtnListener(new ActionListener() {
+            // Create Regular Vending Machine Button
+            this.machineView.setCreateRegularBtnListener(new ActionListener() {
                   @Override
                   public void actionPerformed(ActionEvent e) {
-                        // remove button
-                        JButton clickedButton = (JButton) e.getSource();
-
-                        if (initializeMachine()) {
-                              machineView.removeButton(clickedButton);
-                              // machineView.addVendingMachineButton('R');
-                        }
-
-                        removePanel();
-
+                        clickedButton = (JButton) e.getSource();
+                        initializeMachine();
+                        
                   }
             });
             
             // Create Special Vending Machine Button
-            this.machineView.setSpecialMachineBtnListener(new ActionListener() {
+            this.machineView.setCreateSpecialBtnListener(new ActionListener() {
                   @Override
                   public void actionPerformed(ActionEvent e) {
                         // remove button
-                        JButton clickedButton = (JButton) e.getSource();
+                        clickedButton = (JButton) e.getSource();
                         machineView.removeButton(clickedButton);
                         
-                        removePanel();
+                        machineView.removePanel();
                         // machineModel.createSpecialVendingMachine();
                   }
             });
-      }
-      
-      private void removePanel() {
-            int elements = machineView.getMainFrameTopPanel().getComponentCount(); // https://stackoverflow.com/questions/27116767/count-number-of-children-in-jpanel
 
-            if (elements == 1) {
-                  machineView.getMainFrameTopPanel().remove(0);
-                  machineView.getMainFrameTopPanel().revalidate();
-                  machineView.getMainFrameTopPanel().repaint();
-            }
+            this.machineView.setRegularBtnListener(new ActionListener() {
+                  @Override
+                  public void actionPerformed(ActionEvent e) {
+                        clickedButton = (JButton) e.getSource();
+                        initializeMachine();
+                  }
+            });
       }
 
       private boolean initializeMachine() {
@@ -91,9 +85,15 @@ public class MachineController {
             this.initMachine.setSaveBtnListener(new ActionListener() {
                   @Override
                   public void actionPerformed(ActionEvent e) {
+                        isReady = true;
+                        // System.out.println("Saving machine...\nStatus: " + isReady);
                         vmModel.setInventory(vmModel.getTempInventory());
                         vmModel.clearTempInventory();
-                        isReady = true;
+                        
+                        machineView.removeButton(clickedButton);
+                        machineView.removePanel();
+                        machineView.addVendingMachineButton('R');
+
                         initMachine.getFrame().dispose();
                   }
 

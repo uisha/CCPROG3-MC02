@@ -23,12 +23,10 @@ public class InitializeMachineView {
 
       public InitializeMachineView() {
             this.mainframe = new JFrame("Initialize Vending Machine");
-            System.out.println("InitializeMachineView");
 
-            System.out.println("gaeass");
             this.mainframe.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             this.mainframe.setLayout(new FlowLayout(FlowLayout.LEFT, MARGIN, MARGIN));
-            this.mainframe.setSize(300, 500);
+            this.mainframe.setSize(300, 550);
             initMachineInventory();
 
             this.mainframe.setVisible(true);
@@ -56,18 +54,34 @@ public class InitializeMachineView {
       }
 
       // Getters
+      /**
+       * Returns the name of the item
+       * @return the name of the item
+       */
       public String getItemName() {
             return this.nameTf.getText();
       }
 
+      /**
+       * Returns the price of the item
+       * @return the price of the item
+       */
       public String getItemPrice() {
             return this.priceTf.getText();
       }
 
+      /**
+       * Returns the quantity of the item
+       * @return the quantity of the item
+       */
       public String getItemQuantity() {
             return this.quantityTf.getText();
       }
 
+      /**
+       * Returns the calories of the item
+       * @return the calories of the item
+       */
       public String getItemCalories() {
             return this.caloriesTf.getText();
       }
