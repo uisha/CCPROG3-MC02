@@ -8,10 +8,6 @@ import java.awt.FlowLayout;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-
-
-import java.lang.Exception;
 
 public class MachineView {
       private JFrame mainframe;

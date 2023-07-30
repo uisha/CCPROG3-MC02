@@ -9,8 +9,8 @@ public class Main {
       
       public static void main(String[] args) {
             MachineView machineView = new MachineView();
-            MachineModel machineModel = new MachineModel();
+            VmModel vmModel = new VmModel();
 
-            MachineController machineController = new MachineController(machineView, machineModel);
+            MachineController machineController = new MachineController(machineView, vmModel);
       }
 }
