@@ -15,3 +15,10 @@ public class Main {
             // MachineController machineController = new MachineController(machineView, vmModel);
       }
 }
+
+// TODO: Display inventory for Regular Vending Machine Window
+// TODO: Make number buttons work
+// TODO: Maintenance Features
+// TODO: Buying Features
+// TODO: Special Vending Machine
+// TODO: Limit stock and quantity inputs

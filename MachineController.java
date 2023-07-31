@@ -56,6 +56,8 @@ public class MachineController {
       private boolean initializeMachine() {
             System.out.println("Initializing machine...");
             this.initMachine = new InitializeMachineView();
+
+            // Add Item button
             this.initMachine.setAddItemBtnListener(new ActionListener() {
                   @Override
                   public void actionPerformed(ActionEvent e) {
@@ -64,10 +66,11 @@ public class MachineController {
                         String itemQty = initMachine.getItemQuantity();
                         String itemCalories = initMachine.getItemCalories();
                         boolean result = vmModel.addItem(itemName, itemPrice, itemQty, itemCalories);
-
+                        String displayText;
                         if (result) {
                               initMachine.setStatusMessage("Add success!");
-                              displayInventory('R', vmModel.getTempInventory());
+                              displayText = displayInventory('R', vmModel.getTempInventory());
+                              initMachine.setItemList(displayText);
                               initMachine.clearInputFields();
 
                         } else {
@@ -110,7 +113,7 @@ public class MachineController {
             return isReady;
       }
 
-      private void displayInventory(ArrayList<Item> inventory) {
+      private String displayInventory(ArrayList<Item> inventory) {
             String displayText = "";
             int cnt = 1;
 
@@ -121,10 +124,10 @@ public class MachineController {
                   cnt++;
             }
 
-            initMachine.setItemList(displayText);
+            return displayText;
       }
 
-      private void displayInventory(char code, ArrayList<Item> inventory) {
+      private String displayInventory(char code, ArrayList<Item> inventory) {
             String displayText = "";
             int cnt = 1;
 
@@ -138,8 +141,9 @@ public class MachineController {
                   }
             }
 
-            initMachine.setItemList(displayText);
+            return displayText;
       }
       
 
 }
+
