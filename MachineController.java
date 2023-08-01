@@ -5,13 +5,13 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.Container;
 import java.awt.event.ActionEvent;
 
 public class MachineController {
       private MachineView machineView;
       private VmModel vmModel;
       private InitializeMachineView initMachine;
+      private VendingMachineView vm;
       private final int MIN_SLOTS = 2;
       private final int MIN_QUANTITY = 10;
       private boolean isReady = false;
@@ -44,11 +44,12 @@ public class MachineController {
                   }
             });
 
+            // Regular Vending Machine Button
             this.machineView.setRegularBtnListener(new ActionListener() {
                   @Override
                   public void actionPerformed(ActionEvent e) {
-                        clickedButton = (JButton) e.getSource();
-                        initializeMachine();
+                        System.out.println("pressed VendingMachineView button");
+                        regularVendingMachine();
                   }
             });
       }
@@ -113,6 +114,22 @@ public class MachineController {
             return isReady;
       }
 
+      private void regularVendingMachine() {
+            System.out.println("creating VendingMachineView");
+            this.vm = new VendingMachineView('R');
+
+            this.vm.setNumberBtnListener(new ActionListener() {
+                  @Override
+                  public void actionPerformed(ActionEvent e) {
+                        // Get the button that was pressed
+                        String buttonText = ((JButton) e.getSource()).getText();
+
+                        // Update the view with the updated display text
+                        vm.setMessage(buttonText);
+                        
+                  }
+            });
+      }
       private String displayInventory(ArrayList<Item> inventory) {
             String displayText = "";
             int cnt = 1;

@@ -79,6 +79,7 @@ public class MachineView {
             this.specialBtn.addActionListener(actionListener);
       }
       
+
       // Getters
       /**
        * Returns the regular vending machine button
@@ -146,10 +147,10 @@ public class MachineView {
        */
       public void addVendingMachineButton(char type) {
             if (type == 'R') {
-                  regularBtn = new JButton("Regular Vending Machine");
+                  this.regularBtn = new JButton("Regular Vending Machine");
                   this.mainPanel.add(regularBtn, BorderLayout.CENTER);
             } else if (type == 'S') {
-                  specialBtn = new JButton("Special Vending Machine");
+                  this.specialBtn = new JButton("Special Vending Machine");
                   this.mainPanel.add(specialBtn, BorderLayout.CENTER);
             }
       }

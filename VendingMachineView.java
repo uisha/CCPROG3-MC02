@@ -2,6 +2,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -14,10 +15,12 @@ public class VendingMachineView {
       private JPanel mainPanel, leftPanel, rightPanel;
       private JTextArea displayTa, messageTa;
       private JButton enterBtn, backSpacebtn;
-      private ArrayList<JButton> buttons = new ArrayList<JButton>();
+      private JButton[] numberButtons;
       private static final int MARGIN = 15;
+      private int[] numbers = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 0 };
 
       public VendingMachineView(char type) {
+            System.out.println("in VendingMachineView");
             if (type == 'R') {
                   this.mainframe = new JFrame("Regular Vending Machine");
             } else {
@@ -46,16 +49,15 @@ public class VendingMachineView {
             this.mainPanel.setBackground(Color.ORANGE);
             
             // add all the buttons
-            
-            for (int i = 0; i < 10; i++) {
-                  this.buttons.add(new JButton(String.valueOf(i)));
+            numberButtons = new JButton[numbers.length];
+            for (int i = 0; i < numberButtons.length; i++) {
+                  numberButtons[i] = new JButton(Integer.toString(numbers[i]));
+                  
+                  this.mainPanel.add(numberButtons[i]);
             }
             this.enterBtn = new JButton("Enter");
             this.backSpacebtn = new JButton("del");
 
-            for (JButton jButton : this.buttons) {
-                  this.mainPanel.add(jButton);
-            }
             this.mainPanel.add(this.enterBtn);
             this.mainPanel.add(this.backSpacebtn);
 
@@ -71,4 +73,64 @@ public class VendingMachineView {
             this.mainframe.add(this.mainPanel);
             this.mainframe.add(this.rightPanel);
       }
+
+      // Setters
+      /**
+       * Sets the action listener for the enter button
+       * @param actionListener
+       */
+      public void setEnterBtnListener(ActionListener actionListener) {
+            this.enterBtn.addActionListener(actionListener);
+      }
+      
+      /**
+       * Sets the action listener for the backspace button
+       * @param actionListener
+       */
+      public void setBackSpaceBtnListener(ActionListener actionListener) {
+            this.backSpacebtn.addActionListener(actionListener);
+      }
+
+      /**
+       * Sets the action listener for the number buttons
+       * @param actionListener
+       */
+      public void setNumberBtnListener(ActionListener actionListener) {
+            for (int i = 0; i < numberButtons.length; i++) {
+            numberButtons[i].addActionListener(actionListener);
+        }
+      }
+
+      /**
+       * Sets the message to be displayed on the right panel
+       * @param message
+       */
+      public void setMessage(String message) {
+            this.messageTa.setText(message);
+      }
+
+      /**
+       * Sets the display on the left panel
+       * @param display
+       */
+      public void setDisplay(String display) {
+            this.displayTa.setText(display);
+      }
+
+      /**
+       * Set the display text
+       * @param display
+       */
+      public void setDisplayText(String display) {
+            this.displayTa.setText(display);
+      }
+      // Getters
+      /**
+       * Get button number index
+       * @return int
+       */
+      // public int getBtnIndex(JButton btn) {
+      //       return this.numberButtons.indexOf(btn);
+      // }
+
 }
