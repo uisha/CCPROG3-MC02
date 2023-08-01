@@ -124,13 +124,14 @@ public class VendingMachineView {
       public void setDisplayText(String display) {
             this.displayTa.setText(display);
       }
+
       // Getters
       /**
-       * Get button number index
-       * @return int
+       * Gets the message from the right panel
+       * @return
        */
-      // public int getBtnIndex(JButton btn) {
-      //       return this.numberButtons.indexOf(btn);
+      // public String getMessage() {
+      //       return this.messageTa.getText();
       // }
 
 }

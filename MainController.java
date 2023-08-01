@@ -44,6 +44,7 @@ public class MainController {
                   public void actionPerformed(ActionEvent e) {
                         System.out.println("pressed VendingMachineView button");
                         regularVendingMachine();
+
                   }
             });
       }
@@ -52,16 +53,13 @@ public class MainController {
             System.out.println("Initializing machine...");
             InitializeMachineView initMachineView = new InitializeMachineView();
             InitializeMachineController initMachine = new InitializeMachineController(initMachineView, vmModel, this);
-
-
             // Show View1
             return initMachine.getIsReady();
       }
 
       public void removeButton() {
-            mainView.removeButton(this.clickedButton);
-            mainView.removePanel();
-            mainView.addVendingMachineButton('R');
+            this.mainView.removeButton(this.clickedButton);
+            this.mainView.removePanel();
       }
 
       private void regularVendingMachine() {
@@ -69,17 +67,6 @@ public class MainController {
             this.vm = new VendingMachineView('R');
             VendingMachineController vmController = new VendingMachineController(vm, vmModel);
 
-            // this.vm.setNumberBtnListener(new ActionListener() {
-            //       @Override
-            //       public void actionPerformed(ActionEvent e) {
-            //             // Get the button that was pressed
-            //             String buttonText = ((JButton) e.getSource()).getText();
-
-            //             // Update the view with the updated display text
-            //             vm.setMessage(buttonText);
-                        
-            //       }
-            // });
       }
 }
 

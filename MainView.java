@@ -39,8 +39,14 @@ public class MainView extends JFrame{
             this.createSpecialBtn = new JButton("Special Vending Machine");
 
             this.topPanel.add(this.panelLabel, BorderLayout.NORTH);
-            this.topPanel.add(createRegularBtn, BorderLayout.WEST);
-            this.topPanel.add(createSpecialBtn, BorderLayout.SOUTH);
+            this.topPanel.add(this.createRegularBtn, BorderLayout.WEST);
+            this.topPanel.add(this.createSpecialBtn, BorderLayout.SOUTH);
+
+            this.regularBtn = new JButton("Regular Vending Machine");
+            this.mainPanel.add(this.regularBtn, BorderLayout.CENTER);
+
+            // this.specialBtn = new JButton("Special Vending Machine");
+            // this.mainPanel.add(this.specialBtn, BorderLayout.CENTER);
             
             this.mainframe.add(this.topPanel);
             this.mainframe.add(this.mainPanel);
@@ -138,20 +144,6 @@ public class MainView extends JFrame{
                   this.topPanel.remove(0);
                   this.topPanel.revalidate();
                   this.topPanel.repaint();
-            }
-      }
-
-      /**
-       * Adds a vending machine button to the view
-       * @param type The type of vending machine to be added
-       */
-      public void addVendingMachineButton(char type) {
-            if (type == 'R') {
-                  this.regularBtn = new JButton("Regular Vending Machine");
-                  this.mainPanel.add(regularBtn, BorderLayout.CENTER);
-            } else if (type == 'S') {
-                  this.specialBtn = new JButton("Special Vending Machine");
-                  this.mainPanel.add(specialBtn, BorderLayout.CENTER);
             }
       }
 

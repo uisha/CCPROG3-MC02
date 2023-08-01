@@ -6,6 +6,7 @@ public class VmModel {
       private final int MIN_SLOTS = 2; // change to 8
       private final int MAX_QUANTITY = 15; // change to 20
       private final int MAX_SLOTS = 10; //change to 10
+      private String messageText = "";
       
       public VmModel() {
             this.inventory = new ArrayList<Item>();
@@ -26,8 +27,9 @@ public class VmModel {
 
       public void setTransactionLogs(ArrayList<Item> transactionLogs) {
             this.transactionLogs = new ArrayList<Item>();
-            this.transactionLogs = (ArrayList)transactionLogs.clone();
+            this.transactionLogs = (ArrayList) transactionLogs.clone();
       }
+
 
       // Getters
       public ArrayList<Item> getInventory() {
@@ -84,5 +86,13 @@ public class VmModel {
 
       public void clearTempInventory() {
             this.tempInventory = new ArrayList<Item>();
+      }
+
+      public void updateMessageText(String text) {
+        this.messageText = text;
+      }
+
+      public String getMessageText() {
+        return this.messageText;
       }
 }
