@@ -9,7 +9,7 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.event.ActionListener;
 
-public class MachineView {
+public class MainView extends JFrame{
       private JFrame mainframe;
       private JButton createRegularBtn, createSpecialBtn, regularBtn, specialBtn;
       private JPanel topPanel;
@@ -18,7 +18,7 @@ public class MachineView {
 
       private final int MARGIN = 15;
 
-      public MachineView() {
+      public MainView() {
             this.mainframe = new JFrame("Vending Machine");
             
             this.mainframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

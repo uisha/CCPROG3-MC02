@@ -11,7 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-public class InitializeMachineView {
+public class InitializeMachineView extends JFrame{
       private JFrame mainframe;
       private JLabel itemNameLbl, itemPriceLbl, itemQuantityLbl, itemCaloriesLbl, statusMessageLbl;
       private JTextField nameTf, priceTf, quantityTf, caloriesTf;

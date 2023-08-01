@@ -2,6 +2,10 @@ import java.util.ArrayList;
 
 public class VmModel {
       private ArrayList<Item> inventory, tempInventory, transactionLogs;
+      private final int MIN_QUANTITY = 10; // change to 10
+      private final int MIN_SLOTS = 2; // change to 8
+      private final int MAX_QUANTITY = 15; // change to 20
+      private final int MAX_SLOTS = 10; //change to 10
       
       public VmModel() {
             this.inventory = new ArrayList<Item>();
@@ -36,6 +40,22 @@ public class VmModel {
 
       public ArrayList<Item> getTransactionLogs() {
             return this.transactionLogs;
+      }
+
+      public int getMINQUANTITY() {
+            return this.MIN_QUANTITY;
+      }
+
+      public int getMINSLOTS() {
+            return this.MIN_SLOTS;
+      }
+
+      public int getMAXQUANTITY() {
+            return this.MAX_QUANTITY;
+      }
+
+      public int getMAXSLOTS() {
+            return this.MAX_SLOTS;
       }
       
       // Methods
