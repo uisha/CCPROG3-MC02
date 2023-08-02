@@ -11,8 +11,9 @@ public class MainController {
       private boolean isReady = false;
       private JButton clickedButton;
 
-      public MainController(MainView mainView) {
+      public MainController(MainView mainView, VmModel vmModel) {
             this.mainView = mainView;
+            this.vmModel = vmModel;
             
 
             // Create Regular Vending Machine Button
@@ -84,7 +85,6 @@ public class MainController {
       private void regularVendingMachine() {
             System.out.println("creating VendingMachineView");
             this.vm = new VendingMachineView('R');
-            this.vmModel = new VmModel();
             VendingMachineController vmController = new VendingMachineController(vm, vmModel);
 
       }
@@ -92,8 +92,7 @@ public class MainController {
       private void specialVendingMachine() {
             System.out.println("creating SpecialVendingMachineView");
             this.vm = new VendingMachineView('S');
-            this.vmModel = new VmModel();
-            VendingMachineController vmController = new VendingMachineController(vm, vmModel);
+            // VendingMachineController vmController = new VendingMachineController(vm, vmModel);
 
       }
 }
