@@ -2,7 +2,7 @@
  * The item object that will be used in the vending machine
  */
 public class Item {
-      private String code, name;
+      private String name;
       private double price;
       private double calories;
       private int quantity;
@@ -14,8 +14,7 @@ public class Item {
        * @param quantity item quantity
        * @param calories number of calories in the item
        */
-      public Item(String code, String name, double price, int quantity, double calories) {
-            this.code = code;
+      public Item(String name, double price, int quantity, double calories) {
             this.name = name;
             this.price = price;
             this.quantity = quantity;
@@ -23,14 +22,6 @@ public class Item {
       }
       
       // Setters
-      /**
-       * Setter for item code
-       * @param code the item's special code
-       */
-      private void setCode(String code) {
-            this.code = code;
-      }
-      
       /**
        * Setter for item name
        * @param name the item's name
@@ -65,14 +56,6 @@ public class Item {
       
       // Getters
       /**
-       * Getter for item special code
-       * @return item's special code
-       */
-      public String getCode() {
-            return this.code;
-      }
-
-      /**
        * Getter for item name
        * @return item's name
        */
@@ -105,7 +88,4 @@ public class Item {
       }
 
       // Methods
-      public char getCodeType() {
-            return this.code.charAt(0);
-      }
 }

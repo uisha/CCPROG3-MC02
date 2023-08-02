@@ -3,7 +3,7 @@ import java.util.ArrayList;
 public class VmModel {
       private ArrayList<Item> inventory, tempInventory, transactionLogs;
       private final int MIN_QUANTITY = 10; // change to 10
-      private final int MIN_SLOTS = 2; // change to 8
+      private final int MIN_SLOTS = 1; // change to 8
       private final int MAX_QUANTITY = 15; // change to 20
       private final int MAX_SLOTS = 10; //change to 10
       private final static String mtCode = "001";
@@ -74,17 +74,20 @@ public class VmModel {
       public String getMessageText() {
             return this.messageText;
       }
+
+      public Money getMoney() {
+            return this.money;
+      }
       
       // Methods
       public boolean addItem(String itemName, String itemPrice, String itemQty,
                   String itemCalories) {
             boolean result = false;
-            String code = createItemCode('R');
             try {
                   double price = Double.parseDouble(itemPrice);
                   double calories = Double.parseDouble(itemCalories);
                   int quantity = Integer.parseInt(itemQty);
-                  this.tempInventory.add(new Item(code, itemName, price, quantity, calories));
+                  this.tempInventory.add(new Item(itemName, price, quantity, calories));
                   result = true;
             }
             catch (Exception e) {
@@ -94,30 +97,27 @@ public class VmModel {
             return result;
       }
 
-      public String createItemCode(char type) {
-            int id = this.inventory.size() + 1;
-            return type + String.format("%03d", id);
-      }
-
       public void clearTempInventory() {
             this.tempInventory = new ArrayList<Item>();
       }
 
-      public void updateMessageText(String text) {
-        this.messageText = text;
-      }
-
-      public int processInput(char type) {
+      public int processInput() {
+            // System.out.println("In Process Input");
             int systemCode = -1;
             int input;
 
-            int invSize = getInventorySize(type);
+            int invSize = getInventory().size();
             // returns 0 for maintenance features, 1 for buying an item, -1 for invalid
             if (this.inputString.equals(mtCode)) {
                   systemCode = 0;
             } else {
-                  input = Integer.parseInt(this.inputString);
-                  if (input > 0 && input <= invSize) {
+                  if (this.inputString.equals("")) {
+                        input = 0;
+                  } else {
+                        input = Integer.parseInt(this.inputString);
+                  }
+
+                  if (input >= 0 && input <= invSize) {
                         systemCode = 1;
                   }
             }
@@ -128,26 +128,58 @@ public class VmModel {
       public String getInputString() {
             return this.inputString;
       }
-
-      private int getInventorySize(char type) {
-            int cnt = 0;
-            for (Item item : inventory) {
-                  if (item.getCodeType() == type) {
-                        cnt++;
-                  }
-            }
-            return cnt;
-      }
       
+      public double getBalance() {
+            return this.money.getBalance();
+      }
       public String getMtCode() {
             return this.mtCode;
       }
 
-      public void buyItem(int choice) {
-            Item item = this.inventory.get(choice - 1);
-            double price = item.getPrice();
-            double inputMoney = Double.parseDouble(this.inputString);
+      public Item getItem(int choice) {
+            return this.inventory.get(choice);
+      }
+
+      public int[] getChange(double price) {
+            int[] change = new int[this.money.getDenominationValues().length];
+            change = this.money.getChange(price);
+            return change;
+      }
+
+      public void processItem(int choice, double itemPrice) {
+            int[] change = this.getChange(itemPrice);
             
+            this.messageText = "Change: \n";
+            for (int i = 0; i < change.length; i++) {
+                  this.messageText += "[PHP " + this.money.getDenominationValues()[i] + "] " + change[i] + "x\n";
+            }
+
+            Item item = this.getItem(choice);
+            item.setQuantity(item.getQuantity() - 1);
+            // this.transactionLogs.add(item);
+            
+            this.messageText += "\n Successfully bought " + this.getItem(choice).getName();
+            this.money.resetBalanceBank();
+            System.out.println(this.money.getBalance());
+      }
+
+      public boolean processMoney(String[] inputBalanceList) {
+            int[] balanceList = new int[inputBalanceList.length];
+
+            try {
+                  for (int i = 0; i < inputBalanceList.length; i++) {
+                        if (inputBalanceList[i].equals("")) {
+                              inputBalanceList[i] = "0";
+                        }
+                        balanceList[i] = Integer.parseInt(inputBalanceList[i]);
+                  }
+                  this.money.setBalanceBank(balanceList);
+                  return true;
+            }
+            catch (Exception e) {
+                  System.out.println("Error: " + e);
+            }
+            return false;
       }
 
 }

@@ -25,7 +25,7 @@ public class VendingMachineController implements DisplayScreen{
                         String buttonText = ((JButton) e.getSource()).getText();
                         System.out.println("Button pressed: " + buttonText);
                         System.out.println("Current message: " + vmModel.getMessageText());
-                        vmModel.updateMessageText(vmModel.getMessageText() + buttonText);
+                        vmModel.setMessageText(vmModel.getMessageText() + buttonText);
                         System.out.println("New message: " + vmModel.getMessageText());
 
                         // Update the view with the updated display text
@@ -38,28 +38,25 @@ public class VendingMachineController implements DisplayScreen{
             this.vmView.setEnterBtnListener(new ActionListener() {
                   @Override
                   public void actionPerformed(ActionEvent e) {
-                        int choice;
+                        boolean result;
                         int inputCode;
                         vmModel.setInput();
-                        // Update the view with the updated display text
-                        vmView.setMessage("");
 
-                        if (isBuying == false) {
-                              inputCode = vmModel.processInput('R');
-                              if (inputCode == 0) {
-                                    isMaintenance = true;
-                              } else if (inputCode == 1) {
-                                    isBuying = true;
+                        inputCode = vmModel.processInput();
+                        System.out.println("Input Code: " + inputCode);
+                        if (inputCode == 0) {
+                              isMaintenance = true;
+                        } else if (inputCode == 1) {
+                              result = buyItem();
+                              if (result == false) {
+                                    vmModel.setMessageText("");
                               }
+                        } else if (inputCode == -1) {
+                              System.out.println("That is currently not an available input.");
+                              vmView.setMessage("That is currently not an available input.");
+                              vmModel.setMessageText("");
                         }
-                        
-                        if (isBuying) {
-                              buyItem();
-                              choice = Integer.parseInt(vmModel.getInputString());
-                              vmModel.buyItem(choice);
-                              vmView.setDisplayText(getDisplayInventory(vmModel.getInventory()));
-                              isBuying = false;
-                        }
+                        System.out.println("Input: " + inputCode);
                   }
             });
 
@@ -70,6 +67,31 @@ public class VendingMachineController implements DisplayScreen{
                         String message = removeLastChar(vmModel.getMessageText());
                         vmModel.setMessageText(message);
                         vmView.setMessage(vmModel.getMessageText());
+                  }
+            });
+
+            // Submit button
+            this.vmView.setSubmitMoneyBtnListener(new ActionListener() {
+                  @Override
+                  public void actionPerformed(ActionEvent e) {
+                        String[] inputBalance = new String[vmModel.getMoney().getDenominationValues().length];
+
+                        inputBalance[0] = vmView.getMoney025();
+                        inputBalance[1] = vmView.getMoney1();
+                        inputBalance[2] = vmView.getMoney5();
+                        inputBalance[3] = vmView.getMoney10();
+                        inputBalance[4] = vmView.getMoney50();
+                        inputBalance[5] = vmView.getMoney100();
+
+                        boolean result = vmModel.processMoney(inputBalance);
+                        if (result == true) {
+                              vmView.setMessage("Total Money inserted: " + vmModel.getMoney().getBalance());
+                        } else {
+                              vmView.setMessage("Invalid input.");
+
+                        }
+
+                        vmView.clearMoneyFields();
                   }
             });
       }
@@ -87,28 +109,65 @@ public class VendingMachineController implements DisplayScreen{
             int cnt = 1;
 
             for (Item item : inventory) {
-                  if (item.getCodeType() == 'R') {
-                        displayText += "[" + cnt + "] " + item.getName() +
-                                    "(" + item.getCalories() + ") : PHP" +
-                                    item.getPrice() + " | " + item.getQuantity() + "pc/s\n";
-                        cnt++;
-                  }
+                  displayText += "[" + cnt + "] " + item.getName() +
+                              "(" + item.getCalories() + ") : PHP" +
+                              item.getPrice() + " | " + item.getQuantity() + "pc/s\n";
+                  cnt++;
             }
 
             return displayText;
       }
       
       public void mtFeatures() {
-            // mt features
+            // create a new MaintenanceView
+            MaintenanceView mtView = new MaintenanceView();
+            // create a new MaintenanceController
+            MaintenanceController mtController = new MaintenanceController(mtView, this.vmModel);
       }
 
-      public void buyItem() {
-            int input;
-            this.isBuying = true;
-            input = Integer.parseInt(vmModel.getInputString());
-            vmModel.buyItem(input);
+      public boolean buyItem() {
+            int choice, itemQuantity;
+            double itemPrice, balance;
+            balance = vmModel.getBalance();
+            if (balance == 0) {
+                  return false;
+            }
+
+            if (vmModel.getInputString().equals("")) {
+                  vmView.setMessage("Returning change. Here's your money.\n" +
+                              "Total money: " + balance + "\n");
+                  return false;
+            }
             
+            choice = Integer.parseInt(vmModel.getInputString());
+            System.out.println("Choice: " + choice);
+            choice -= 1;
+
+            if (choice >= 0 && choice < vmModel.getInventory().size()) {
+                  // System.out.println("Choice-1: " + choice);
+                  itemPrice = vmModel.getItem(choice).getPrice();
+                  // System.out.println("Pass 1");
+                  itemQuantity = vmModel.getItem(choice).getQuantity();
+                  // System.out.println("Pass 2");
+
+                  System.out.println("Processing item: " + vmModel.getItem(choice).getName());
+                  if (balance < itemPrice) {
+                        vmView.setMessage("Money insufficient. Please insert more money!");
+                        return false;
+                  } else if (itemQuantity == 0) {
+                        vmView.setMessage("The vending machine does not have that right now.");
+                        return false;
+                  }
+
+                  vmModel.processItem(choice, itemPrice);
+                  vmView.setMessage(vmModel.getMessageText());
+                  vmModel.setMessageText("");
+
+            } else {
+                  vmView.setMessage("Invalid input.");
+                  return false;
+            }
             vmView.setDisplayText(getDisplayInventory(vmModel.getInventory()));
-            vmModel.enterMoney();
+            return true;
       }
 }
