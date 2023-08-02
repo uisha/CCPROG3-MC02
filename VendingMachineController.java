@@ -45,7 +45,9 @@ public class VendingMachineController implements DisplayScreen{
                         inputCode = vmModel.processInput();
                         System.out.println("Input Code: " + inputCode);
                         if (inputCode == 0) {
-                              isMaintenance = true;
+                              MaintenanceView mtView = new MaintenanceView();
+                              MaintenanceController mtController = new MaintenanceController(mtView, vmModel);
+                              vmModel.setMessageText("");
                         } else if (inputCode == 1) {
                               result = buyItem();
                               if (result == false) {
@@ -76,7 +78,7 @@ public class VendingMachineController implements DisplayScreen{
                   public void actionPerformed(ActionEvent e) {
                         String[] inputBalance = new String[vmModel.getMoney().getDenominationValues().length];
 
-                        inputBalance[0] = vmView.getMoney025();
+                        inputBalance[0] = vmView.getMoney05();
                         inputBalance[1] = vmView.getMoney1();
                         inputBalance[2] = vmView.getMoney5();
                         inputBalance[3] = vmView.getMoney10();
@@ -120,9 +122,8 @@ public class VendingMachineController implements DisplayScreen{
       
       public void mtFeatures() {
             // create a new MaintenanceView
-            MaintenanceView mtView = new MaintenanceView();
             // create a new MaintenanceController
-            MaintenanceController mtController = new MaintenanceController(mtView, this.vmModel);
+            
       }
 
       public boolean buyItem() {
@@ -138,7 +139,7 @@ public class VendingMachineController implements DisplayScreen{
                               "Total money: " + balance + "\n");
                   return false;
             }
-            
+
             choice = Integer.parseInt(vmModel.getInputString());
             System.out.println("Choice: " + choice);
             choice -= 1;
@@ -170,4 +171,5 @@ public class VendingMachineController implements DisplayScreen{
             vmView.setDisplayText(getDisplayInventory(vmModel.getInventory()));
             return true;
       }
+      
 }

@@ -7,11 +7,10 @@
 public class Main {
 
       public static void main(String[] args) {
-            MaintenanceView mv = new MaintenanceView();
-            // MainView machineView = new MainView();
-            // VmModel vmModel = new VmModel();
 
-            // MainController machineController = new MainController(machineView, vmModel);
+            MainView machineView = new MainView();
+
+            MainController machineController = new MainController(machineView);
       }
 }
 

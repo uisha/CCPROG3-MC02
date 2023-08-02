@@ -12,12 +12,12 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 public class InitializeMachineView extends JFrame{
-      private JFrame mainframe;
-      private JLabel itemNameLbl, itemPriceLbl, itemQuantityLbl, itemCaloriesLbl, statusMessageLbl;
-      private JTextField nameTf, priceTf, quantityTf, caloriesTf;
-      private JButton addItemBtn, saveBtn;
-      private JTextArea itemListTa;
-      private JPanel panel;
+      protected JFrame mainframe;
+      protected JLabel itemNameLbl, itemPriceLbl, itemQuantityLbl, itemCaloriesLbl, statusMessageLbl;
+      protected JTextField nameTf, priceTf, quantityTf, caloriesTf;
+      protected JButton addItemBtn, saveBtn;
+      protected JTextArea itemListTa;
+      protected JPanel panel;
 
       private static final int MARGIN = 15;
 

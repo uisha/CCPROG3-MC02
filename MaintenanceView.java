@@ -19,6 +19,7 @@ public class MaintenanceView {
       private JLabel money05lbl, money1lbl, money5lbl, money10lbl, money50lbl, money100lbl;
       private JTextField money05tf, money1tf, money5tf, money10tf, money50tf, money100tf;
       private JLabel restockInvLbl, addItemLbl, setItemPriceLbl, restockChangeLbl, displayTransactionsLbl;
+      private JLabel collectMoneyLbl;
       private JButton saveItemBtn, restockChangeBtn, collectMoneyBtn, exitBtn;
       private JTextArea transactionTf;
       private final int MARGIN = 15;
@@ -146,8 +147,10 @@ public class MaintenanceView {
             this.mainframe.add(this.transactionTf);
 
             this.collectMoneyBtn = new JButton("Collect Money");
+            this.collectMoneyLbl = new JLabel("Collected Money: ");
             this.exitBtn = new JButton("Exit");
             this.mainframe.add(this.collectMoneyBtn);
+            this.mainframe.add(this.collectMoneyLbl);
             this.mainframe.add(this.exitBtn);
       }
       
@@ -166,6 +169,10 @@ public class MaintenanceView {
 
       public void setExitBtnListener(ActionListener listener) {
             this.exitBtn.addActionListener(listener);
+      }
+
+      public void setCollectedMoneyLbl(String money) {
+            this.collectMoneyLbl.setText("Collected Money: " + money);
       }
       
       // Getters
@@ -212,5 +219,28 @@ public class MaintenanceView {
       // Methods
       public void setTransactionTf(String transaction) {
             this.transactionTf.setText(transaction);
+      }
+
+      public void clearMoneyFields() {
+            this.money05tf.setText("");
+            this.money1tf.setText("");
+            this.money5tf.setText("");
+            this.money10tf.setText("");
+            this.money50tf.setText("");
+            this.money100tf.setText("");
+      }
+
+      /**
+       * Clears the input fields
+       */
+      public void clearInputFields() {
+            this.itemNameTf.setText("");
+            this.itemPriceTf.setText("");
+            this.itemQuantityTf.setText("");
+            this.itemCaloriesTf.setText("");
+      }
+      
+      public JFrame getFrame() {
+            return this.mainframe;
       }
 }

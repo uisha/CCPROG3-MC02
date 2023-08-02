@@ -11,9 +11,9 @@ public class MainController {
       private boolean isReady = false;
       private JButton clickedButton;
 
-      public MainController(MainView mainView, VmModel machineModel) {
+      public MainController(MainView mainView) {
             this.mainView = mainView;
-            this.vmModel = machineModel;
+            
 
             // Create Regular Vending Machine Button
             this.mainView.setCreateRegularBtnListener(new ActionListener() {
@@ -31,6 +31,7 @@ public class MainController {
                   public void actionPerformed(ActionEvent e) {
                         // remove button
                         clickedButton = (JButton) e.getSource();
+                        initializeSpecialMachine();
                         mainView.removeButton(clickedButton);
                         
                         mainView.removePanel();
@@ -47,14 +48,32 @@ public class MainController {
 
                   }
             });
+
+            // Special Vending Machine Button
+            this.mainView.setSpecialBtnListener(new ActionListener() {
+                  @Override
+                  public void actionPerformed(ActionEvent e) {
+                        System.out.println("pressed SpecialVendingMachineView button");
+                        specialVendingMachine();
+                  }
+            });
       }
 
       private boolean initializeMachine() {
             System.out.println("Initializing machine...");
             InitializeMachineView initMachineView = new InitializeMachineView();
             InitializeMachineController initMachine = new InitializeMachineController(initMachineView, vmModel, this);
-            // Show View1
+
             return initMachine.getIsReady();
+      }
+
+      private boolean initializeSpecialMachine() {
+            System.out.println("Initializing special machine...");
+            // InitializeSpecialMachineView initSpecialMachineView = new InitializeSpecialMachineView();
+            // InitializeSpecialMachineController initSpecialMachine = new InitializeSpecialMachineController(initSpecialMachineView, vmModel, this);
+
+            // return initSpecialMachine.getIsReady();
+            return false; // placholder
       }
 
       public void removeButton() {
@@ -65,6 +84,15 @@ public class MainController {
       private void regularVendingMachine() {
             System.out.println("creating VendingMachineView");
             this.vm = new VendingMachineView('R');
+            this.vmModel = new VmModel();
+            VendingMachineController vmController = new VendingMachineController(vm, vmModel);
+
+      }
+
+      private void specialVendingMachine() {
+            System.out.println("creating SpecialVendingMachineView");
+            this.vm = new VendingMachineView('S');
+            this.vmModel = new VmModel();
             VendingMachineController vmController = new VendingMachineController(vm, vmModel);
 
       }

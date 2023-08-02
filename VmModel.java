@@ -175,11 +175,43 @@ public class VmModel {
                   }
                   this.money.setBalanceBank(balanceList);
                   return true;
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                   System.out.println("Error: " + e);
             }
             return false;
       }
+
+      public void addToInventory(Item newItem) {
+            for (Item item : this.inventory) {
+                  if(item.getName().equals(newItem.getName())) {
+                        item.setQuantity(newItem.getQuantity());
+                        item.setPrice(newItem.getPrice());
+                        item.setCalories(newItem.getCalories());
+                        return;
+                  }
+            }
+      }
+
+      public void addChange(String[] inputBalance) {
+            int[] balance = new int[inputBalance.length];
+            try {
+                  for (int i = 0; i < inputBalance.length; i++) {
+                        if (inputBalance[i].equals("")) {
+                              inputBalance[i] = "0";
+                        }
+                        balance[i] = Integer.parseInt(inputBalance[i]);
+                  }
+                  this.money.addChange(balance);
+            } catch (Exception e) {
+                  System.out.println("Error: " + e);
+            }
+      }
+
+      public double collectMoney() {
+            double balance = this.money.getTotalProfit();
+            this.money.resetChangeBank();
+            return balance;
+      }
+
 
 }

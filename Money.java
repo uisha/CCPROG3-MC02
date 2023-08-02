@@ -92,4 +92,10 @@ public class Money {
 
             return change;
       }
+
+      public void addChange(int[] balance) {
+            for (int i : balance) {
+                  this.changeBank[i] += balance[i];
+            }
+      }
 }

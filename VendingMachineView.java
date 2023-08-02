@@ -31,7 +31,7 @@ public class VendingMachineView {
                   this.mainframe = new JFrame("Special Vending Machine");
             }
 
-            this.mainframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            this.mainframe.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             this.mainframe.setLayout(new FlowLayout(FlowLayout.LEFT));
             display();
             this.mainframe.pack();
@@ -193,7 +193,7 @@ public class VendingMachineView {
        * Gets the money entered in the 0.25 text field
        * @return the amount of 25 cents entered
        */
-      public String getMoney025() {
+      public String getMoney05() {
             return this.money05tf.getText();
       }
 
