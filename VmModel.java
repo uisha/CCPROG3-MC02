@@ -6,7 +6,11 @@ public class VmModel {
       private final int MIN_SLOTS = 2; // change to 8
       private final int MAX_QUANTITY = 15; // change to 20
       private final int MAX_SLOTS = 10; //change to 10
+      private final static String mtCode = "001";
       private String messageText = "";
+      private String inputString = "";
+      private Calculator calc = new Calculator();
+      private Money money = new Money();
       
       public VmModel() {
             this.inventory = new ArrayList<Item>();
@@ -30,6 +34,13 @@ public class VmModel {
             this.transactionLogs = (ArrayList) transactionLogs.clone();
       }
 
+      public void setInput() {
+            this.inputString = this.messageText;
+      }
+
+      public void setMessageText(String messageText) {
+            this.messageText = messageText;
+      }
 
       // Getters
       public ArrayList<Item> getInventory() {
@@ -58,6 +69,10 @@ public class VmModel {
 
       public int getMAXSLOTS() {
             return this.MAX_SLOTS;
+      }
+      
+      public String getMessageText() {
+            return this.messageText;
       }
       
       // Methods
@@ -92,7 +107,47 @@ public class VmModel {
         this.messageText = text;
       }
 
-      public String getMessageText() {
-        return this.messageText;
+      public int processInput(char type) {
+            int systemCode = -1;
+            int input;
+
+            int invSize = getInventorySize(type);
+            // returns 0 for maintenance features, 1 for buying an item, -1 for invalid
+            if (this.inputString.equals(mtCode)) {
+                  systemCode = 0;
+            } else {
+                  input = Integer.parseInt(this.inputString);
+                  if (input > 0 && input <= invSize) {
+                        systemCode = 1;
+                  }
+            }
+
+            return systemCode;
       }
+
+      public String getInputString() {
+            return this.inputString;
+      }
+
+      private int getInventorySize(char type) {
+            int cnt = 0;
+            for (Item item : inventory) {
+                  if (item.getCodeType() == type) {
+                        cnt++;
+                  }
+            }
+            return cnt;
+      }
+      
+      public String getMtCode() {
+            return this.mtCode;
+      }
+
+      public void buyItem(int choice) {
+            Item item = this.inventory.get(choice - 1);
+            double price = item.getPrice();
+            double inputMoney = Double.parseDouble(this.inputString);
+            
+      }
+
 }
