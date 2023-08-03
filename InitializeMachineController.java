@@ -6,10 +6,10 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 public class InitializeMachineController implements DisplayScreen{
-      private InitializeMachineView initMachineView;
-      private MainController mc;
-      private VmModel vmModel;
-      private boolean isReady;
+      protected InitializeMachineView initMachineView;
+      protected MainController mc;
+      protected VmModel vmModel;
+      protected boolean isReady;
 
       public InitializeMachineController (InitializeMachineView initMachineView, VmModel vmModel, MainController mainController) {
             this.initMachineView = initMachineView;

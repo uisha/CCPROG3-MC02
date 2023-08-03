@@ -10,7 +10,8 @@ public class Main {
 
             MainView machineView = new MainView();
             VmModel vmModel = new VmModel();
-            MainController machineController = new MainController(machineView, vmModel);
+            VmModel specialVmModel = new VmModel();
+            MainController machineController = new MainController(machineView, vmModel, specialVmModel);
       }
 }
 

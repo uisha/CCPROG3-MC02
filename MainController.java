@@ -6,14 +6,15 @@ import java.awt.event.ActionEvent;
 
 public class MainController {
       private MainView mainView;
-      private VmModel vmModel;
+      private VmModel vmModel, specialVmModel;
       private VendingMachineView vm;
       private boolean isReady = false;
       private JButton clickedButton;
 
-      public MainController(MainView mainView, VmModel vmModel) {
+      public MainController(MainView mainView, VmModel vmModel, VmModel specialVmModel) {
             this.mainView = mainView;
             this.vmModel = vmModel;
+            this.specialVmModel = specialVmModel;
             
 
             // Create Regular Vending Machine Button
@@ -33,9 +34,7 @@ public class MainController {
                         // remove button
                         clickedButton = (JButton) e.getSource();
                         initializeSpecialMachine();
-                        mainView.removeButton(clickedButton);
                         
-                        mainView.removePanel();
                         // machineModel.createSpecialVendingMachine();
                   }
             });
@@ -70,11 +69,10 @@ public class MainController {
 
       private boolean initializeSpecialMachine() {
             System.out.println("Initializing special machine...");
-            // InitializeSpecialMachineView initSpecialMachineView = new InitializeSpecialMachineView();
-            // InitializeSpecialMachineController initSpecialMachine = new InitializeSpecialMachineController(initSpecialMachineView, vmModel, this);
+            InitializeSpecialMachineView initSpecialMachineView = new InitializeSpecialMachineView();
+            InitializeSpecialMachineController initSpecialMachine = new InitializeSpecialMachineController(initSpecialMachineView, vmModel, specialVmModel, this);
 
-            // return initSpecialMachine.getIsReady();
-            return false; // placholder
+            return initSpecialMachine.getIsReady();
       }
 
       public void removeButton() {

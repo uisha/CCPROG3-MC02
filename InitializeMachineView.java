@@ -19,7 +19,7 @@ public class InitializeMachineView extends JFrame{
       protected JTextArea itemListTa;
       protected JPanel panel;
 
-      private static final int MARGIN = 15;
+      protected static final int MARGIN = 15;
 
       public InitializeMachineView() {
             this.mainframe = new JFrame("Initialize Vending Machine");
@@ -146,7 +146,7 @@ public class InitializeMachineView extends JFrame{
             
             // create a display of all items in the vending machine
             this.itemListTa = new JTextArea(" ");
-            this.itemListTa.setPreferredSize(new Dimension(720, 170));
+            this.itemListTa.setPreferredSize(new Dimension(270, 170));
             this.itemListTa.setEditable(false);
             
             this.saveBtn = new JButton("Save");
