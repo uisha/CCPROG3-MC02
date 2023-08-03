@@ -14,11 +14,3 @@ public class Main {
             MainController machineController = new MainController(machineView, vmModel, specialVmModel);
       }
 }
-
-// TODO: Display message for right panel
-// TODO: Display inventory for Regular Vending Machine Window
-// TODO: Make number buttons work
-// TODO: Maintenance Features
-// TODO: Buying Features
-// TODO: Special Vending Machine
-// TODO: Limit stock and quantity inputs

@@ -40,6 +40,10 @@ public class InitializeMachineController implements DisplayScreen{
                         if (vmModel.getTempInventory().size() >= vmModel.getMINSLOTS()) {
                               initMachineView.showSaveBtn();
                         }
+
+                        if (vmModel.getTempInventory().size() == vmModel.getMAXSLOTS()) {
+                              initMachineView.hideAddItemBtn();
+                        }
                   }
 
                   

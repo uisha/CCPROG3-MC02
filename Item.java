@@ -6,6 +6,7 @@ public class Item {
       private double price;
       private double calories;
       private int quantity;
+      private String type; // "Not Stand-Alone (nsa)", "Stand-Alone (sa)", "Final Product(fp)"
 
       /**
        * Constructor class for item object
@@ -19,8 +20,36 @@ public class Item {
             this.price = price;
             this.quantity = quantity;
             this.calories = calories;
+            this.type = "Stand-Alone";
+      }
+
+      /**
+       * Constructor class for item object
+       * @param name item name
+       * @param price item price
+       * @param quantity item quantity
+       * @param calories number of calories in the item
+       */
+      public Item(String name, double price, int quantity, double calories, String type) {
+            this.name = name;
+            this.price = price;
+            this.quantity = quantity;
+            this.calories = calories;
+            this.type = type;
       }
       
+      /**
+       * Constructor class for item object
+       * @param name item name
+       * @param price item price
+       * @param quantity item quantity
+       * @param calories number of calories in the item
+       */
+      public Item(String name, int quantity) {
+            this.name = name;
+            this.quantity = quantity;
+      }
+
       // Setters
       /**
        * Setter for item name
@@ -54,6 +83,15 @@ public class Item {
             this.calories = calories;
       }
       
+      /**
+       * Setter for item type
+       * @param type the type of item
+       */
+      public void setType(String type) {
+            this.type = type;
+      }
+
+
       // Getters
       /**
        * Getter for item name
@@ -85,6 +123,14 @@ public class Item {
        */
       public double getCalories() {
             return this.calories;
+      }
+
+      /**
+       * Getter for item type
+       * @return type of item
+       */
+      public String getType() {
+            return this.type;
       }
 
       // Methods

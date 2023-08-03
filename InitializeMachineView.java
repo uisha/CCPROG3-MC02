@@ -174,4 +174,11 @@ public class InitializeMachineView extends JFrame{
       public void showSaveBtn() {
             this.mainframe.add(this.saveBtn);
       }
+
+      /**
+       * Hides the save button
+       */
+      public void hideAddItemBtn() {
+            this.addItemBtn.setVisible(false);
+      }
 }

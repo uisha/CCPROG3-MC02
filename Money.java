@@ -59,15 +59,22 @@ public class Money {
             this.changeBank = changeBank;
       }
 
+      /**
+       * resets the money to the balance bank by setting all denominations to 0
+       */
       public void resetChangeBank() {
             for (int denomBal : changeBank) {
                   denomBal = 0;
             }
       }
       
+      /**
+       * Returns the total profit of the vending machine.
+       * @return total profit
+       */
       public double getTotalProfit() {
             double totalProfit = 0;
-            for (int i : balanceBank) {
+            for (int i : changeBank) {
                   totalProfit += i * denominationValue[i];
             }
             return totalProfit;

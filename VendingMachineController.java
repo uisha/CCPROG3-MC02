@@ -168,6 +168,7 @@ public class VendingMachineController implements DisplayScreen{
                   vmView.setMessage("Invalid input.");
                   return false;
             }
+            
             vmView.setDisplayText(getDisplayInventory(vmModel.getInventory()));
             return true;
       }
